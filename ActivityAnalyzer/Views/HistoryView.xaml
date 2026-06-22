@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:ActivityAnalyzer.ViewModel"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+             x:Class="ActivityAnalyzer.Pages.HistoryView">
+
+    <ContentView.Resources>
+        <viewModel:HistoryViewModel x:Key="ViewModel" />
+    </ContentView.Resources>
+    <ContentView.BindingContext>
+        <StaticResourceExtension Key="ViewModel" />
+    </ContentView.BindingContext>
+
+    <VerticalStackLayout>
+
+        <HorizontalStackLayout Margin="10,0">
+            <Label Text="История за" VerticalOptions="Center" FontSize="32"/>
+            <DatePicker Margin="15" Format="dd.MM.yyyy" FontSize="32"
+                Date="{Binding SelectedDate, Mode=TwoWay}" VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <Button x:Name="AddActivityButton" Text="Добавить активность" Margin="15"
+                Clicked="AddActivityButton_Clicked"/>
+
+        <HorizontalStackLayout Margin="10, 0">
+            <Label Text="Средняя удовлетворенность: "/>
+            <Label Text="{Binding AverageSatisfaction}"/>
+        </HorizontalStackLayout>
+
+        <Label Text="Список активностей" Margin="10"/>
+
+        <dg:DataGrid ItemsSource="{Binding ActivityList}" Margin="10, 0" HeightRequest="200">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn PropertyName="Name" Title="Название">
+                    <dg:DataGridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding ., Converter={StaticResource WheelOfLifeEnumConverter}}" 
+                                VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                        </DataTemplate>
+                    </dg:DataGridColumn.CellTemplate>
+                </dg:DataGridColumn>
+                <dg:DataGridColumn PropertyName="Hours" Title="Часы" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+
+    </VerticalStackLayout>
+    
+</ContentView>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:ActivityAnalyzer.Pages"
+             x:Class="ActivityAnalyzer.Pages.NavigationContainer"
+             Title="Swipe Navigation">
+    <Grid>
+        <CarouselView x:Name="PagesCarousel" Loop="False"
+                      ItemsSource="{Binding Views}">
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <ContentView Content="{Binding .}" />
+                </DataTemplate>
+            </CarouselView.ItemTemplate>
+        </CarouselView>
+    </Grid>
+</ContentPage>

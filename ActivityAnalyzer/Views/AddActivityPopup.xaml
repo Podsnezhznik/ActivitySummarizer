@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:ActivityAnalyzer.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ActivityAnalyzer.Views.AddActivityPopup">
+
+    <ContentView.Resources>
+        <viewModel:ActivityPopupViewModel x:Key="ViewModel" />
+    </ContentView.Resources>
+    <ContentView.BindingContext>
+        <StaticResourceExtension Key="ViewModel" />
+    </ContentView.BindingContext>
+
+    <VerticalStackLayout Spacing="15" Padding="20">
+        <Label Text="Новая активность" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
+
+        <Picker ItemsSource="{Binding CategoryList}"
+            ItemDisplayBinding="{Binding ., Converter={StaticResource WheelOfLifeEnumConverter}}"
+            SelectedItem="{Binding SelectedCategory, Mode=TwoWay}"
+            HorizontalTextAlignment="Center"/>
+
+        <HorizontalStackLayout>
+            <Label Text="Продолжительность(час): " HorizontalOptions="Start" VerticalOptions="Center"/>
+            <Entry Placeholder="Часы" Text="{Binding Hours}" Keyboard="Numeric" 
+                HorizontalOptions="Center" HorizontalTextAlignment="Center" VerticalOptions="Center"/>
+        </HorizontalStackLayout>
+        
+        <Picker Title="Удовлетворенность" 
+            ItemsSource="{Binding SatisfactionList}" 
+            SelectedItem="{Binding SelectedSatisfaction}" />
+
+        <Button Text="Добавить" HorizontalOptions="Center" Clicked="Button_Clicked"/>
+    </VerticalStackLayout>
+</toolkit:Popup>

@@ -2,13 +2,19 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:ActivityAnalyzer"
+             xmlns:converters="clr-namespace:ActivityAnalyzer.Converters"
              x:Class="ActivityAnalyzer.App">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
+
+            <converters:WheelOfLifeEnumConverter x:Key="WheelOfLifeEnumConverter"/>
+            <converters:ImportanceEnumConverter x:Key="ImportanceEnumConverter"/>
+            <converters:DoubleToStringConverter x:Key="DoubleToStringConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
