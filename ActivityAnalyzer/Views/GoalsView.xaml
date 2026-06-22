@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:ActivityAnalyzer.ViewModel"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="ActivityAnalyzer.Pages.GoalsView">
+
+    <ContentView.Resources>
+        <viewModel:GoalsViewModel x:Key="ViewModel" />
+    </ContentView.Resources>
+    <ContentView.BindingContext>
+        <StaticResourceExtension Key="ViewModel" />
+    </ContentView.BindingContext>
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Text="Настройки целей" Margin="15,0" FontSize="32"/>
+
+        <CollectionView ItemsSource="{Binding GoalSettingList}" Margin="15" Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="LightGray" StrokeThickness="1" Padding="10" Margin="10,5">
+                        <VerticalStackLayout Spacing="10" VerticalOptions="Start">
+                            <Label Text="{Binding Category, Converter={StaticResource WheelOfLifeEnumConverter}}"
+                                FontAttributes="Bold" FontSize="Medium"/>
+
+                            <HorizontalStackLayout>
+                                <Label Text="Целевые часы: " VerticalOptions="Center"/>
+                                <Entry Text="{Binding TargetHours, Converter={StaticResource DoubleConverter}, Mode=TwoWay}"
+                                    Keyboard="Numeric" HorizontalTextAlignment="Center" WidthRequest="40"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout>
+                                <Label Text="Важность и потенциал (от 1 до 3): " VerticalOptions="Center"/>
+                                <Entry Text="{Binding Importance, Converter={StaticResource DoubleConverter}, Mode=TwoWay}"
+                                    Keyboard="Numeric" HorizontalTextAlignment="Center" WidthRequest="40"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout>
+                                <Label Text="Отдача: " VerticalOptions="Center"/>
+                                <Picker ItemsSource="{Binding BindingContext.ImportanceList, Source={RelativeSource AncestorType={x:Type ContentView}}}"
+                                    ItemDisplayBinding="{Binding ., Converter={StaticResource ImportanceEnumConverter}}"
+                                    SelectedItem="{Binding PersonalGoals, Mode=TwoWay}"
+                                    HorizontalTextAlignment="Center"/>
+                            </HorizontalStackLayout>
+
+                        </VerticalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        
+    </Grid>
+</ContentView>

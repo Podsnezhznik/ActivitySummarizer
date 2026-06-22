@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModel="clr-namespace:ActivityAnalyzer.ViewModel"
+             xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+             x:Class="ActivityAnalyzer.Pages.MainView">
+
+    <ContentView.Resources>
+        <viewModel:MainViewModel x:Key="ViewModel" />
+    </ContentView.Resources>
+    <ContentView.BindingContext>
+        <StaticResourceExtension Key="ViewModel" />
+    </ContentView.BindingContext>
+
+    <VerticalStackLayout>
+
+        <Label HorizontalTextAlignment="Start" Margin="15" FontSize="38"
+            Text="{Binding CurrentDate}"/>
+
+        <Button x:Name="AddActivityButton" Text="Добавить активность" Margin="15, 5"
+            Clicked="AddActivityButton_Clicked" HeightRequest="40"/>
+
+        <Label Margin="10, 10, 10, 5" Text="Дефициты сегодня"/>
+
+        <dg:DataGrid ItemsSource="{Binding DeficitList}" Margin="10, 0">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn PropertyName="Name" Title="Название">
+                    <dg:DataGridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding ., Converter={StaticResource WheelOfLifeEnumConverter}}" 
+                                VerticalTextAlignment="Center" HorizontalTextAlignment="Center" />
+                        </DataTemplate>
+                    </dg:DataGridColumn.CellTemplate>
+                </dg:DataGridColumn>
+                <dg:DataGridColumn PropertyName="Deficit" Title="Недостаток" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+
+        <Label Margin="10, 10, 10, 5" Text="Активности"/>
+
+        <dg:DataGrid ItemsSource="{Binding ActivityList}" Margin="10, 0" 
+            ItemSelected="DataGrid_ItemSelected">
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn PropertyName="Name" Title="Название">
+                    <dg:DataGridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding ., Converter={StaticResource WheelOfLifeEnumConverter}}" 
+                                VerticalTextAlignment="Center"  HorizontalTextAlignment="Center" />
+                        </DataTemplate>
+                    </dg:DataGridColumn.CellTemplate>
+                </dg:DataGridColumn>
+                <dg:DataGridColumn PropertyName="Hours" Title="Часы" Width="50"/>
+                <dg:DataGridColumn PropertyName="Satisfaction" Title="Удовлетворенность" Width="*"/>
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+
+    </VerticalStackLayout>
+    
+</ContentView>
+    
