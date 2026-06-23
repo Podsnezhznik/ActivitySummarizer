@@ -7,10 +7,16 @@ namespace ActivityAnalyzer;
 
 public partial class MainPage : ContentPage
 {
-    private MainViewModel viewModel = new();
+    private MainViewModel viewModel;
     public MainPage()
     {
         InitializeComponent();
+        CreateViewModelAsync();
+    }
+
+    private async void CreateViewModelAsync()
+    {
+        viewModel = await MainViewModel.CreateViewModelAsync();
         BindingContext = viewModel;
     }
 

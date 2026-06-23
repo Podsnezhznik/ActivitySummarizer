@@ -6,11 +6,19 @@ namespace ActivityAnalyzer.Pages;
 
 public partial class MainView : ContentView
 {
-	public MainView()
+    private MainViewModel viewModel;
+
+    public MainView()
 	{
 		InitializeComponent();
-		BindingContext = new MainViewModel();
-	}
+        CreateViewModelAsync();
+    }
+
+    private async void CreateViewModelAsync()
+    {
+        viewModel = await MainViewModel.CreateViewModelAsync();
+        BindingContext = viewModel;
+    }   
 
     private async void AddActivityButton_Clicked(object sender, EventArgs e)
     {
